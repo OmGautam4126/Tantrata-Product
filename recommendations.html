@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Product Recommendations{% endblock %}
+
+{% block content %}
+<h2>🧠 Product Recommendations</h2>
+
+{% if recommendations %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Recommended Product</th>
+  </tr>
+  {% for product, recommended in recommendations %}
+  <tr>
+    <td>{{ product }}</td>
+    <td>{{ recommended }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No recommendations available yet. Try making more bill purchases!</p>
+{% endif %}
+
+{% endblock %}

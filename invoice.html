@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Invoice{% endblock %}
+{% block content %}
+
+<h2>🧾 Invoice</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Qty</th>
+    <th>Price/Unit</th>
+    <th>Total</th>
+  </tr>
+  {% for product, qty, line_total in items %}
+  <tr>
+    <td>{{ product.name }}</td>
+    <td>{{ qty }}</td>
+    <td>₹{{ product.unit_price }}</td>
+    <td>₹{{ line_total }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3>Subtotal: ₹{{ sale.total_amount }}</h3>
+<h3>Tax (18%): ₹{{ sale.tax }}</h3>
+<h3>Discount (10%): ₹{{ sale.discount }}</h3>
+<h2>Total Payable: ₹{{ sale.final_amount }}</h2>
+
+<a href="{{ url_for('download_invoice', sale_id=sale.id) }}">
+  <button>Download PDF Invoice</button>
+</a>
+
+{% endblock %}
+
+

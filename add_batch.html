@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Add Inventory Batch{% endblock %}
+{% block content %}
+
+<h2>📥 Add Inventory Batch</h2>
+<form method="POST">
+  <label>Select Product:</label><br>
+  <select name="product_id" required>
+    {% for product in products %}
+      <option value="{{ product.id }}">{{ product.name }}</option>
+    {% endfor %}
+  </select><br><br>
+
+  <label>Quantity:</label><br>
+  <input type="number" name="quantity" required><br><br>
+
+  <button type="submit">Add Batch</button>
+</form>
+
+{% endblock %}
+
+

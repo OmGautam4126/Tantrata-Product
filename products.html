@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Products{% endblock %}
+{% block content %}
+
+<h2>📦 Product List</h2>
+<form method="POST" action="/products/new">
+  <input type="text" name="name" placeholder="Product Name" required>
+  <input type="text" name="description" placeholder="Description">
+  <input type="number" name="unit_price" placeholder="Price ₹" required>
+  <input type="number" name="quantity" placeholder="Quantity" required>
+  <button type="submit">Add Product</button>
+</form>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Price</th>
+    <th>Quantity</th>
+    <th>Actions</th>
+  </tr>
+  {% for product in products %}
+  <tr>
+    <td>{{ product.name }}</td>
+    <td>{{ product.description }}</td>
+    <td>₹{{ product.unit_price }}</td>
+    <td>{{ product.quantity }}</td>
+    <td>
+      <a href="{{ url_for('edit_product', product_id=product.id) }}">Edit</a>
+      <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+

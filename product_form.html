@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Product</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Add New Product</h1>
+   <form method="POST">
+  <input type="text" name="name" placeholder="Name" value="{{ product.name if product else '' }}">
+  <input type="text" name="description" placeholder="Description" value="{{ product.description if product else '' }}">
+  <input type="number" name="unit_price" placeholder="Price" value="{{ product.unit_price if product else '' }}">
+  <input type="number" name="quantity" placeholder="Quantity" value="{{ product.quantity if product else '' }}">
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Forecast{% endblock %}
+
+{% block content %}
+<h2>📈 Forecasted Product Demand (Next 30 Days)</h2>
+
+{% if forecast_result %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Predicted Quantity</th>
+  </tr>
+  {% for row in forecast_result %}
+  <tr>
+    <td>{{ row.product_name }}</td>
+    <td>{{ row.predicted_qty }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No forecast data available. Please generate at least one bill to enable prediction.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Inventory App{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <!-- ✅ NAVIGATION BAR -->
+  <nav style="background-color: #2563eb; padding: 15px;">
+    <a href="/dashboard" style="color:white; margin-right: 20px; text-decoration: none;">🏠 Dashboard</a>
+    <a href="/products" style="color:white; margin-right: 20px; text-decoration: none;">📦 Products</a>
+    <a href="/inventory" style="color:white; margin-right: 20px; text-decoration: none;">📊 Inventory</a>
+    <a href="/billing" style="color:white; margin-right: 20px; text-decoration: none;">💵 Billing</a>
+    <a href="{{ url_for('forecast') }}">Forecast</a>
+    <a href="{{ url_for('recommendations') }}">Recommendations</a>
+    <a href="{{ url_for('anomalies') }}">Anomalies</a>
+  </nav>
+
+  <div style="padding: 30px;">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer style="text-align: center; margin-top: 40px; font-size: 14px; color: #888;">
+    © 2025 YourName | Inventory & Billing System
+  </footer>
+
+</body>
+</html>

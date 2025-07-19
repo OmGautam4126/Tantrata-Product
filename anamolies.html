@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Sales Anomalies{% endblock %}
+
+{% block content %}
+<h2>🚨 Anomaly Detection (Unusual Sales)</h2>
+
+{% if anomalies %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date</th>
+    <th>Quantity Sold</th>
+  </tr>
+  {% for a in anomalies %}
+  <tr>
+    <td>{{ a.product_name }}</td>
+    <td>{{ a.date }}</td>
+    <td>{{ a.quantity }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No anomalies detected yet. Make more sales for better detection.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Inventory{% endblock %}
+{% block content %}
+
+<h2>📊 Inventory Batches</h2>
+
+<!-- Add New Batch Button -->
+<a href="{{ url_for('add_batch') }}" class="btn btn-primary mb-3">+ Add New Batch</a>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Date Added</th>
+  </tr>
+  {% for batch in batches %}
+  <tr>
+    <td>{{ batch.product.name }}</td>
+    <td>{{ batch.quantity }}</td>
+    <td>{{ batch.date_added }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
+

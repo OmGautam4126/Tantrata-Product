@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Billing{% endblock %}
+{% block content %}
+
+<h2>🧾 Create Bill</h2>
+
+<form method="POST">
+  <!-- 🟢 Customer Email Input -->
+  <label for="email">Enter your email:</label><br>
+  <input type="email" name="email" required placeholder="example@gmail.com"><br><br>
+
+  <!-- 🧾 Product Table -->
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>₹{{ product.unit_price }}</td>
+      <td>
+        <input type="number" name="quantity_{{ product.id }}" min="0" max="{{ product.quantity }}" value="0">
+      </td>
+    </tr>
+    {% endfor %}
+  </table><br>
+
+  <button type="submit">Generate Bill</button>
+</form>
+
+{% endblock %}
+
+
+

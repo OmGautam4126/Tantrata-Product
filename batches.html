@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>All Batches</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>All Inventory Batches</h2>
+
+<table>
+  <tr>
+    <th>Batch ID</th>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Date Added</th>
+  </tr>
+  {% for batch in batches %}
+  <tr>
+    <td>{{ batch.id }}</td>
+    <td>{{ batch.product.name }}</td>
+    <td>{{ batch.quantity }}</td>
+    <td>{{ batch.date_added }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* General Styling */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  color: #2c3e50;
+  padding: 30px;
+  margin: 0;
+}
+
+h1, h2, h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+h2 {
+  border-left: 6px solid #2563eb;
+  padding-left: 10px;
+  font-size: 22px;
+}
+
+h3 {
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+/* Forms */
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+form input[type="text"],
+form input[type="number"],
+form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin: 5px;
+  width: 180px;
+}
+
+button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 20px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background-color: #2563eb;
+  color: white;
+  padding: 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+  background-color: #f0f8ff;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #888;
+  text-align: center;
+}
+
+

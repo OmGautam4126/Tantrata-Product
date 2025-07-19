@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2>Inventory & Billing Dashboard</h2>
+
+<!-- 🟢 Add Product Form -->
+<h2>➕ Add Product</h2>
+<form method="POST" action="/products/new">
+  <input type="text" name="name" placeholder="Product Name" required>
+  <input type="text" name="description" placeholder="Description">
+  <input type="number" name="unit_price" placeholder="Price ₹" required>
+  <input type="number" name="quantity" placeholder="Quantity" required>
+  <button type="submit">Add Product</button>
+</form>
+
+
+<!-- 🧾 Product List -->
+<h2>📋 Product List</h2>
+<table>
+  <tr>
+    <th>ID</th><th>Name</th><th>Description</th><th>Price</th><th>Qty</th><th>Actions</th>
+  </tr>
+  {% for product in products %}
+  <tr>
+    <td>{{ product.id }}</td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.description }}</td>
+    <td>₹{{ product.unit_price }}</td>
+    <td>{{ product.quantity }}</td>
+    <td>
+      <a href="{{ url_for('edit_product', product_id=product.id) }}">Edit</a>
+      |
+      <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+  <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<!-- 📦 Inventory (Batch-Wise) -->
+<h2>📦 Inventory</h2>
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Date Added</th>
+  </tr>
+  {% for item in inventory %}
+  <tr>
+    <td>{{ item.product.name }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.date_added }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+<!-- 💳 Billing Form -->
+<h2>🧾 Generate Bill</h2>
+<form method="POST" action="/billing">
+  <label>Customer Email:</label>
+  <input type="email" name="email" required><br><br>
+
+  <table>
+    <tr><th>Product</th><th>Unit Price</th><th>Qty</th></tr>
+    {% for product in products %}
+    <tr>
+      <td>{{ product.name }}</td>
+      <td>₹{{ product.unit_price }}</td>
+      <td>
+        <input type="number" name="quantity_{{ product.id }}" min="0" max="{{ product.quantity }}" value="0">
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <button type="submit">Generate Bill</button>
+</form>
+
+
+
+<!-- ✅ Invoice Display (if bill is generated) -->
+{% if sale %}
+<h3>🧾 Final Bill</h3>
+<table>
+  <tr><th>Product</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr>
+  {% for product, qty, line_total in items %}
+  <tr>
+    <td>{{ product.name }}</td>
+    <td>{{ qty }}</td>
+    <td>₹{{ product.unit_price }}</td>
+    <td>₹{{ line_total }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+<h3>Subtotal: ₹{{ sale.total_amount }}</h3>
+<h3>Tax (18%): ₹{{ sale.tax }}</h3>
+<h3>Discount (10%): ₹{{ sale.discount }}</h3>
+<h2>Total Payable: ₹{{ sale.final_amount }}</h2>
+
+<a href="{{ url_for('download_invoice', sale_id=sale.id) }}">
+  <button>Download PDF Invoice</button>
+</a>
+{% endif %}
+
+
+<!-- 📈 Forecasted Demand -->
+<h2>📈 Forecasted Product Demand (Next 30 Days)</h2>
+{% if forecast_result %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Predicted Quantity</th>
+  </tr>
+  {% for row in forecast_result %}
+  <tr>
+    <td>{{ row.product_name }}</td>
+    <td>{{ row.predicted_qty }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No forecast data available.</p>
+{% endif %}
+
+
+<h2>🚨 Sales Anomalies Detected</h2>
+
+{% if anomalies %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date</th>
+    <th>Quantity Sold</th>
+  </tr>
+  {% for a in anomalies %}
+  <tr>
+    <td>{{ a.product_name }}</td>
+    <td>{{ a.date }}</td>
+    <td>{{ a.quantity }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No anomalies found. Make more sales for better detection.</p>
+{% endif %}
+
+<h2>💸 Optimal Price Suggestion</h2>
+
+{% if optimal_prices %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Suggested Price ₹</th>
+  </tr>
+  {% for p in optimal_prices %}
+  <tr>
+    <td>{{ p.product_name }}</td>
+    <td>₹{{ p.optimal_price }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No price suggestions yet. Sell more to train the model.</p>
+{% endif %}
+
+
+<h2>📦 Inventory Optimization (Next 7 Days)</h2>
+
+{% if inventory_suggestions %}
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Recommended Inventory Qty</th>
+  </tr>
+  {% for item in inventory_suggestions %}
+  <tr>
+    <td>{{ item.product_name }}</td>
+    <td>{{ item.recommended_qty }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No suggestions yet. Add more sales to improve prediction.</p>
+{% endif %}
+
+
+{% endblock %}
